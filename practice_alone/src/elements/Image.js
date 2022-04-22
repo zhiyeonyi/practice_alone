@@ -31,9 +31,9 @@ const Image = (props) => {
 }
 
 Image.defaultProps = {
-  shape: "circle",
-  src: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
-  size: 36,
+    shape: "circle",
+    src: "https://mpng.subpng.com/20180505/rce/kisspng-kitten-cornish-rex-bicolor-cat-tuxedo-suit-cat-pattern-printing-5aedd2c7861424.4878579315255354315492.jpg",
+    size: 36,
 };
 
 const AspectOutter = styled.div`
