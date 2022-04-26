@@ -36,7 +36,11 @@ export const userApi = {
 
 export const dictQuestionApi = {
   writePost: ()=> instance.post('/api/post'),
-  showPost: (postId) => instance.post(`/api/showpost/${postId}`),
+  showPost: (userId) => instance.post('/api/showpost'),
   editPost: (postId) => instance.put(`/api/post/${postId}`),
-  deletePost: (postId)=> instance.delete(`/api/post/${postId}`),
+  deletePost: (postId)=> instance.delete('/api/post'),
+  }
+
+  export const likeApi = {
+    likePost: (postId,userid) => instance.get('/api/like'),
   }
