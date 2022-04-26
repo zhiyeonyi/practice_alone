@@ -1,8 +1,7 @@
 import axios from "axios";
 
-// 사용자 정의 인스턴스 기본 설정 참고 (https://yamoo9.github.io/axios/guide/config-defaults.html#%EA%B8%80%EB%A1%9C%EB%B2%8C-axios-%EA%B8%B0%EB%B3%B8-defaults-%EC%84%A4%EC%A0%95)
 const instance = axios.create({
-  baseURL: " http://13.124.131.7",
+  baseURL: "http://13.124.131.7",
   headers: {
     "content-type": "application/json;charset=UTF-8", // 자바스크립트는 json형태로 받아와야 한다.
     accept: "application/json",
@@ -14,7 +13,7 @@ const instance = axios.create({
 // interceptors의 역할 => then이나 catch로 처리되기 전
 // 요청(request)이나 응답(response)을 가로채 어떠한 작업을 수행할 수 있게 한다. 참고 (https://yamoo9.github.io/axios/guide/interceptors.html)
 instance.interceptors.request.use(function (config) {
-  const accessToken = localStorage.user_token; // 우리는 로컬스토리지에 저장하기로 했음!
+  const accessToken = sessionStorage.user_token; // 우리는 로컬스토리지에 저장하기로 했음!
   config.headers.common["X-AUTH-TOKEN"] = `${accessToken}`; // header에 토큰값을 넣는다 => header에 토큰값이 있어 앞으로 request를 자유자재로 할 수 있다.
   return config;
 });
@@ -29,17 +28,15 @@ instance.interceptors.request.use(function (config) {
 //  });
 
 // 데이터 요청 to 서버
-export const apis = {
-  // user
+export const userApi = {
+  login: (username, password) => instance.post('/api/login', { username: username, password: password }),
+  join: (username, password, passwordCheck, nickName) => instance.post('/api/register', { username: username, password: password, passwordCheck: passwordCheck,nickName: nickName }),
 
-  signup: (userEmail, password, passwordConfirm, userName) =>
-    instance.post("/api/users/sign-up", {
-      userEmail: userEmail,
-      password: password,
-      passwordConfirm: passwordConfirm,
-      userName: userName,
-    }),
+}
 
-
-
-};
+export const dictQuestionApi = {
+  writePost: ()=> instance.post('/api/post'),
+  showPost: (postId) => instance.post(`/api/showpost/${postId}`),
+  editPost: (postId) => instance.put(`/api/post/${postId}`),
+  deletePost: (postId)=> instance.delete(`/api/post/${postId}`),
+  }
